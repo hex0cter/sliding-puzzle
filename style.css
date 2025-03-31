@@ -35,7 +35,52 @@ body {
     border-radius: var(--border-radius-main);
     box-shadow: var(--shadow);
     text-align: center;
+    /* position: relative; Removed as picker is now outside */
 }
+
+.color-picker-container {
+    position: fixed; /* Changed to fixed for viewport positioning */
+    top: 1rem;       /* Adjusted position */
+    right: 1rem;      /* Adjusted position */
+    z-index: 100;     /* Ensure it's above other content */
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    padding: 0.3rem 0.6rem;
+    border-radius: 20px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.color-picker-container label {
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: 600;
+}
+
+#colorPicker {
+    border: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; /* Make it circular */
+    cursor: pointer;
+    padding: 0; /* Remove default padding */
+    background-color: transparent; /* Remove default background */
+    overflow: hidden; /* Hide default browser styles */
+}
+/* Style the color picker's inner swatch */
+#colorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+#colorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+#colorPicker::-moz-color-swatch {
+    border: none;
+    border-radius: 50%;
+}
+
 
 h1 {
     color: var(--header-color);

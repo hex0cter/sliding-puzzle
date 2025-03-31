@@ -114,5 +114,67 @@ function checkWin() {
     return tiles[tiles.length - 1] === 0;
 }
 
+// --- Color Picker Logic ---
+const colorPicker = document.getElementById('colorPicker');
+const root = document.documentElement;
+
+// Helper function to adjust hex color brightness
+function adjustColor(hex, percent) {
+    hex = hex.replace('#', '');
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+
+    r = Math.min(255, Math.max(0, Math.round(r * (1 + percent / 100))));
+    g = Math.min(255, Math.max(0, Math.round(g * (1 + percent / 100))));
+    b = Math.min(255, Math.max(0, Math.round(b * (1 + percent / 100))));
+
+    const rr = r.toString(16).padStart(2, '0');
+    const gg = g.toString(16).padStart(2, '0');
+    const bb = b.toString(16).padStart(2, '0');
+
+    return `#${rr}${gg}${bb}`;
+}
+
+// Helper function to convert hex to rgba with alpha
+function hexToRgba(hex, alpha) {
+    hex = hex.replace('#', '');
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+
+function updateThemeColors(baseColor) {
+    const hoverColor = adjustColor(baseColor, -15); // Darker for hover
+    const headerColor = adjustColor(baseColor, -40); // Even darker for header
+    const puzzleBgColor = adjustColor(baseColor, 30); // Lighter for puzzle background
+    const accentColor = adjustColor(baseColor, 15); // Slightly lighter/different for accent
+    const patternColor = hexToRgba(baseColor, 0.05); // Very transparent for pattern
+
+    root.style.setProperty('--tile-bg', baseColor);
+    root.style.setProperty('--tile-hover-bg', hoverColor);
+    root.style.setProperty('--header-color', headerColor);
+    root.style.setProperty('--puzzle-bg', puzzleBgColor);
+    root.style.setProperty('--accent-color', accentColor);
+    root.style.setProperty('--pattern-color', patternColor);
+
+    // Optional: Adjust background based on brightness? Could be complex.
+    // For now, keep --bg-color light. Maybe derive from baseColor too?
+    // Let's try a very light version of the base color for the main background
+    const mainBgColor = adjustColor(baseColor, 80); // Very light version
+    root.style.setProperty('--bg-color', mainBgColor);
+}
+
+colorPicker.addEventListener('input', (event) => {
+    updateThemeColors(event.target.value);
+});
+
+// Initial color set on load
+updateThemeColors(colorPicker.value);
+// --- End Color Picker Logic ---
+
+
 // Start the game
 initGame();
