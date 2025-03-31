@@ -97,13 +97,17 @@ function moveTile(clickedIndex) {
     emptyIndex = clickedIndex;
     moves++;
     document.getElementById('moveCounter').textContent = moves;
+    document.getElementById('moveSound').play(); // Play move sound
 
     if (checkWin()) {
+        confetti({
+            particleCount: 100,
+            spread: 70,
+            origin: { y: 0.6 },
+        });
         document.getElementById('message').textContent = `You won! Next level: ${gridSize + 1}x${gridSize + 1}`;
-        setTimeout(() => {
-            gridSize++;
-            initGame();
-        }, 1500);
+        showCongratsScreen();
+        document.getElementById('winSound').play(); // Play win sound
     }
 }
 
@@ -175,6 +179,23 @@ colorPicker.addEventListener('input', (event) => {
 updateThemeColors(colorPicker.value);
 // --- End Color Picker Logic ---
 
+
+// Congratulation screen functions
+function showCongratsScreen() {
+    document.querySelector('.congrats-moves').textContent = moves;
+    document.querySelector('.congrats-screen').style.display = 'flex';
+}
+
+function hideCongratsScreen() {
+    document.querySelector('.congrats-screen').style.display = 'none';
+}
+
+// Continue button handler
+document.querySelector('.continue-btn').addEventListener('click', () => {
+    gridSize++;
+    hideCongratsScreen();
+    initGame();
+});
 
 // Start the game
 initGame();

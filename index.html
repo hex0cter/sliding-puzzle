@@ -8,18 +8,28 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
 </head>
 <body>
     <div class="color-picker-container">
         <label for="colorPicker">Theme:</label>
         <input type="color" id="colorPicker" value="#6bb7ff"> <!-- Default to current blue -->
     </div>
+    <audio id="moveSound" src="https://opengameart.org/sites/default/files/click.wav"></audio>
+    <audio id="winSound" src="https://opengameart.org/sites/default/files/Victory%21.wav"></audio>
     <div class="game-container">
         <h1>Sliding Puzzle</h1>
         <div class="puzzle-container" id="puzzle"></div>
         <div class="game-info">
             <div>Moves: <span id="moveCounter">0</span></div>
             <div id="message"></div>
+        </div>
+    </div>
+    <div class="congrats-screen">
+        <div class="congrats-content">
+            <h2>Level Complete! 🎉 🎊 </h2>
+            <p>Moves: <span class="congrats-moves">0</span></p>
+            <button class="continue-btn">Next Level →</button>
         </div>
     </div>
     <script src="script.js"></script>

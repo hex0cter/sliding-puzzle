@@ -10,7 +10,7 @@
     --accent-color: #17a2b8; /* Teal accent for messages */
     --border-radius-main: 15px;
     --border-radius-tile: 8px;
-    --shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+    --shadow: 0 10px 20px rgba(0,0,0,0.45), 0 6px 6px rgba(0,0,0,0.1);
 }
 
 body {
@@ -87,6 +87,7 @@ h1 {
     font-weight: 600;
     margin-bottom: 1.5rem;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.05); /* Subtle text shadow */
+    font-family: cursive;
 }
 
 .puzzle-container {
@@ -136,6 +137,73 @@ h1 {
     font-size: 1.1rem;
     margin-top: 1.5rem;
     color: var(--text-color);
+}
+
+.congrats-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.congrats-content {
+    background: var(--container-bg);
+    padding: 2rem 3rem;
+    border-radius: var(--border-radius-main);
+    text-align: center;
+    box-shadow: var(--shadow);
+    transform: scale(0.9);
+    animation: slideUp 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+.congrats-content h2 {
+    color: var(--header-color);
+    margin-bottom: 1rem;
+}
+
+.congrats-moves {
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.continue-btn {
+    background: var(--tile-bg);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1rem;
+}
+
+.continue-btn:hover {
+    background: var(--tile-hover-bg);
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
 #message {
